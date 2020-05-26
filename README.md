@@ -1,11 +1,12 @@
 autoClock 西安交通大学每日健康打卡脚本
 =========
 ## 依赖
+```js
 nodejs v12.16.3
 const puppeteer = require('puppeteer');  
 const moment = require('moment');  
 const schedule = require('node-schedule'); 
-
+```
 
 > 如果下载太慢
 
