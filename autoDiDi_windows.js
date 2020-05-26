@@ -102,7 +102,9 @@ function my() {
 const  scheduleCronstyle = ()=>{
   //每天8点13点1分30秒定时执行一次:
     schedule.scheduleJob('30 1 8,13 * * *',()=>{
+      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+": 开始填报")
       my()
+      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+": 结束填报")
     }); 
 }
 
