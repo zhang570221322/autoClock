@@ -1,0 +1,28 @@
+{
+  "name": "autoclock",
+  "version": "1.0.0",
+  "description": "autoClock",
+  "main": "autoDiDi.js",
+  "dependencies": {
+    "moment": "^2.26.0",
+    "node-schedule": "^1.3.2",
+    "puppeteer": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "None"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhang570221322/autoClock.git"
+  },
+  "keywords": [
+    "Clock"
+  ],
+  "author": "zhangwl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhang570221322/autoClock/issues"
+  },
+  "homepage": "https://github.com/zhang570221322/autoClock#readme"
+}

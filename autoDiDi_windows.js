@@ -3,7 +3,10 @@ const moment = require('moment');
 const schedule = require('node-schedule');
 
 function my() {
-  (async () => {
+  (async () => { 
+  
+    // const browser = await puppeteer.launch()
+
     const browser = await puppeteer.launch({
       slowMo: 10,    //放慢速度
       headless: false,

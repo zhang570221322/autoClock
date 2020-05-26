@@ -7,12 +7,17 @@ const puppeteer = require('puppeteer');
 const moment = require('moment');  
 const schedule = require('node-schedule'); 
 ```
+## 安装依赖
+
+```js
+npm install
+```
 
 > 如果下载太慢
 
 ```js
 npm config set registry https://registry.npm.taobao.org
-npm install  xxxxx --registry=https://registry.npm.taobao.org
+npm config set ELECTRON_MIRROR https://npm.taobao.org/mirrors/electron/
 ```
 ------------
 ## 修改账户密码和其他
