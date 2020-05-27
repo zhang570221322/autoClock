@@ -71,10 +71,3 @@ yum install at-spi2-atk -y
 yum install libXScrnSaver* -y
 yum install gtk3 -y
 ```
-
-### 2
-```bash
-(node:29114) UnhandledPromiseRejectionWarning: Error: Failed to launch the browser process!
-[29125:29125:0527/150026.411453:ERROR:zygote_host_impl_linux.cc(89)] Running as root without --no-sandbox is not supported. See https://crbug.com/638180
-
-```
