@@ -14,16 +14,14 @@ const fs = require("fs");
 ```
 
 ## 安装依赖
-
-```js
-npm install
-```
-
 > 如果下载太慢
-
 ```js
 npm config set registry https://registry.npm.taobao.org
 npm config set ELECTRON_MIRROR https://npm.taobao.org/mirrors/electron/
+```
+
+```js
+npm install
 ```
 
 ------------
@@ -42,6 +40,7 @@ scheduleJob: 30 1 8,13 * * *
 ## 测试
 ```js
 // 进行一次打卡
+// 保存多张截图
 node autoDiDi_test.js
 ```
 

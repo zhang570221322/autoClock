@@ -26,7 +26,7 @@ function my() {
       const navigationPromise = page.waitForNavigation()
       
       await page.goto('http://one2020.xjtu.edu.cn/EIP/user/index.htm')
-    
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test.png"});//截个图
   
       // 登陆
       const username= await page.waitForSelector('.main > .main_info > .loginState > #form1 > .username')
@@ -35,6 +35,7 @@ function my() {
       //密码
       const password = await page.waitForSelector('.main > .main_info > .loginState > #form1 > .pwd')
       await password.type(String(data['user']['password']), {delay: 1});
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test.png"});//截个图
       await page.waitForSelector('.organizational #account_login')
       await page.click('.organizational #account_login') 
       await navigationPromise
@@ -42,7 +43,7 @@ function my() {
       await page.waitForSelector('.header > .hall-tabs > ul > li:nth-child(1) > a')
       await page.click('.header > .hall-tabs > ul > li:nth-child(1) > a')
       await navigationPromise
-    
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test.png"});//截个图
       //选择研究生填报
       await page.waitFor(3000)
       frames1= await page.frames()
@@ -50,7 +51,7 @@ function my() {
       await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
       await frame_48.click('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
       await navigationPromise
-  
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test.png"});//截个图
       //选择返校后填报
       await page.waitFor(3000)
       frames2= await page.frames()
@@ -59,7 +60,7 @@ function my() {
       await frame_50.click('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
       await navigationPromise
       
-      
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test.png"});//截个图
       //开始填报
       await page.waitFor(12000)
       console.log('开始填报'+moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss'))
@@ -78,14 +79,14 @@ function my() {
         my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
         my.contentWindow.mini.get("BRTW").value="36."+random
       })
-  
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test.png"});//截个图
       //提交按钮
       frames4 = await page.frames()
       const frame_53 = frames4.find(f => f.url().includes('cooperative/openCooperative.htm'))
       await frame_53.waitForSelector('table #sendBtn')
       await frame_53.click('table #sendBtn')
       // 截图
-      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_1.png"});//截个图
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test_1.png"});//截个图
   
       // 确定按钮
       await page.waitFor(5000)
@@ -95,7 +96,7 @@ function my() {
       var done= await frame_5_1.waitForSelector("#mini-17")
       await  done.click()
       // 截图
-      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_2.png"});//截个图
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_test_2.png"});//截个图
       await browser.close()
       console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报")
   })()
