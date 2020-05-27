@@ -1,16 +1,24 @@
 const puppeteer = require('puppeteer');
-const moment = require('moment');
-const schedule = require('node-schedule');
-
+const moment = require('moment');// 时间
+const schedule = require('node-schedule'); // 定时任务
+const YAML = require('yamljs'); //读取配置文件
+const fs = require("fs"); 
+yaml_file="main.yml" //配置文件路径
+const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 function my() {
   (async () => { 
-  
-    // const browser = await puppeteer.launch()
-
+    console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报")
+    
     const browser = await puppeteer.launch({
-      slowMo: 10,    //放慢速度
-      headless: false,
-      defaultViewport: {width: 1540, height: 1080},
+      slowMo: 20,    //放慢速度
+      headless: data['config']['noShowUI'],
+      defaultViewport: {
+        width: 1540,
+        height: 1080,
+        hasTouch: true,
+        isMobile: false,
+        deviceScaleFactor: 3,
+      },
       ignoreHTTPSErrors: false, //忽略 https 报错
       args: ['--start-fullscreen'] //全屏打开页面
   });
@@ -23,11 +31,10 @@ function my() {
       // 登陆
       const username= await page.waitForSelector('.main > .main_info > .loginState > #form1 > .username')
       // 账户
-      await username.type('xxx', {delay: 1});
-      const password = await page.waitForSelector('.main > .main_info > .loginState > #form1 > .pwd')
+      await username.type(data['user']['username'], {delay: 1});
       //密码
-      await password.type('xxxx', {delay: 1});
-    
+      const password = await page.waitForSelector('.main > .main_info > .loginState > #form1 > .pwd')
+      await password.type(String(data['user']['password']), {delay: 1});
       await page.waitForSelector('.organizational #account_login')
       await page.click('.organizational #account_login') 
       await navigationPromise
@@ -37,7 +44,6 @@ function my() {
       await navigationPromise
     
       //选择研究生填报
-      // await page.waitForSelector('#mini-17\\$body\\$5 > iframe');
       await page.waitFor(3000)
       frames1= await page.frames()
       const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
@@ -46,7 +52,6 @@ function my() {
       await navigationPromise
   
       //选择返校后填报
-      // await page.waitForSelector('#mini-17\$body\$9 > iframe');
       await page.waitFor(3000)
       frames2= await page.frames()
       const frame_50 =  frames2.find(f => f.url().includes('/elobby/service/start.htm'))
@@ -56,24 +61,23 @@ function my() {
       
       
       //开始填报
-      // await page.waitForSelector('#mini-14\\$body\\$2 > iframe');
-      await page.waitFor(10000)
+      await page.waitFor(12000)
       console.log('开始填报'+moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss'))
   
-    await page.evaluate(() => {
-      var my=(document.getElementsByTagName("iframe")[2]).contentDocument.getElementsByTagName("iframe")[0];
-      //随机温度
-      var random=Math.floor(Math.random()*10);
-      // 绿色
-      my.contentDocument.querySelector("#mini-2\\$ck\\$2").click();
-      // 到过校园
-      my.contentDocument.querySelector("#mini-72\\$ck\\$0").click();
-      // 创新港
-      my.contentDocument.querySelector("#XQ\\$value").value="创新港校区"
-      // 36.5
-      my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
-      my.contentWindow.mini.get("BRTW").value="36."+random
-  })
+      await page.evaluate(() => {
+        var my=(document.getElementsByTagName("iframe")[2]).contentDocument.getElementsByTagName("iframe")[0];
+        //随机温度
+        var random=Math.floor(Math.random()*10);
+        // 绿色
+        my.contentDocument.querySelector("#mini-2\\$ck\\$2").click();
+        // 到过校园
+        my.contentDocument.querySelector("#mini-72\\$ck\\$0").click();
+        // 创新港
+        my.contentDocument.querySelector("#XQ\\$value").value="创新港校区"
+        // 36.5
+        my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
+        my.contentWindow.mini.get("BRTW").value="36."+random
+      })
   
       //提交按钮
       frames4 = await page.frames()
@@ -81,7 +85,7 @@ function my() {
       await frame_53.waitForSelector('table #sendBtn')
       await frame_53.click('table #sendBtn')
       // 截图
-      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"1.png"});//截个图
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_1.png"});//截个图
   
       // 确定按钮
       await page.waitFor(5000)
@@ -91,22 +95,14 @@ function my() {
       var done= await frame_5_1.waitForSelector("#mini-17")
       await  done.click()
       // 截图
-      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"2.png"});//截个图
+      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_2.png"});//截个图
       await browser.close()
-  
-   
+      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报")
   })()
-  
+
 }
 
-const  scheduleCronstyle = ()=>{
-  //每天8点13点1分30秒定时执行一次:
-    schedule.scheduleJob('30 1 8,13 * * *',()=>{
-      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+": 开始填报")
-      my()
-      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+": 结束填报")
-    }); 
-}
+my();
 
-scheduleCronstyle();
+
 

@@ -1,0 +1,8 @@
+config: 
+# 是否显示UI
+  noShowUI: false
+user: 
+  username: xxxxxx
+  password: xxxxxx
+# 每天8点和13点的1分30秒定时执行一次
+scheduleJob: 30 1 8,13 * * *
