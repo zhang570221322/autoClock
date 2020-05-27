@@ -29,7 +29,8 @@ npm install
 
 ```yml
 config: 
-# 是否显示UI
+# 显示UI
+# linux下必须为true
   noShowUI: false
 user: 
   username: xxxxxx
@@ -49,3 +50,31 @@ node autoDiDi_test.js
 node autoDiDi.js
 ```
 
+## Q&A
+### 1
+```bash
+# linux下报错 
+(node:27123) UnhandledPromiseRejectionWarning: Error: Failed to launch the browser process!
+/root/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/chrome: error while loading shared libraries: libatk-bridge-2.0.so.0: cannot open shared object file: No such file or directory
+# 解决办法 (因为缺少依赖)
+cd /root/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/
+# 检查缺少依赖
+ldd chrome|grep not
+# 结果
+	libatk-bridge-2.0.so.0 => not found
+	libXss.so.1 => not found
+	libatspi.so.0 => not found
+	libgtk-3.so.0 => not found
+	libgdk-3.so.0 => not found
+# 安装依赖
+yum install at-spi2-atk -y
+yum install libXScrnSaver* -y
+yum install gtk3 -y
+```
+
+### 2
+```bash
+(node:29114) UnhandledPromiseRejectionWarning: Error: Failed to launch the browser process!
+[29125:29125:0527/150026.411453:ERROR:zygote_host_impl_linux.cc(89)] Running as root without --no-sandbox is not supported. See https://crbug.com/638180
+
+```
