@@ -73,8 +73,8 @@ function my() {
         my.contentDocument.querySelector("#mini-2\\$ck\\$2").click();
         // 到过校园
         my.contentDocument.querySelector("#mini-72\\$ck\\$0").click();
-        // 创新港
-        my.contentDocument.querySelector("#XQ\\$value").value="创新港校区"
+        // 哪个校园
+        my.contentDocument.querySelector("#XQ\\$value").value=data['user']['campus']
         // 36.5
         my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
         my.contentWindow.mini.get("BRTW").value="36."+random
