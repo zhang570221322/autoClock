@@ -20,7 +20,7 @@ function my() {
         deviceScaleFactor: 3,
       },
       ignoreHTTPSErrors: false, //忽略 https 报错
-      args: ['--no-sandbox', '--disable-setuid-sandbox','--start-fullscreen'] //全屏打开页面
+      args: [`--window-size=${1540},${1080}`,'--no-sandbox', '--disable-setuid-sandbox','--start-fullscreen'] //全屏打开页面
   });
       const page = await browser.newPage()
       const navigationPromise = page.waitForNavigation()
