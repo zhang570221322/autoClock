@@ -35,6 +35,9 @@ config:
 user: 
   username: xxxxxx
   password: xxxxxx
+  # 到过校园
+  # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
+  campus: 创新港校区
 # 每天8点和13点的1分30秒定时执行一次
 scheduleJob: 30 1 8,13 * * *
 ```
