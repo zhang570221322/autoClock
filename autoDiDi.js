@@ -64,7 +64,7 @@ function my() {
       await page.waitFor(12000)
       console.log('开始填报'+moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss'))
   
-      await page.evaluate(() => {
+      await page.evaluate((data) => {
         var my=(document.getElementsByTagName("iframe")[2]).contentDocument.getElementsByTagName("iframe")[0];
         //随机温度
         var random=Math.floor(Math.random()*10);
@@ -77,7 +77,7 @@ function my() {
         // 36.5
         my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
         my.contentWindow.mini.get("BRTW").value="36."+random
-      })
+      },data)
   
       //提交按钮
       frames4 = await page.frames()
