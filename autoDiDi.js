@@ -118,7 +118,7 @@ function my() {
 
 const  scheduleCronstyle = ()=>{
 
-    schedule.scheduleJob( data['scheduleJob'],()=>{
+    schedule.scheduleJob( data['config']['scheduleJob'],()=>{
       my()
     }); 
 }
