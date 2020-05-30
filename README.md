@@ -18,15 +18,18 @@
 4. 到过哪个校园
 5. 当前体温，随机温度 36.X
 
+> 打卡成功会发送截图至反馈邮箱
+
 ## 依赖
 
 ```js
 nodejs v12.16.3
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer');//模拟操作
 const moment = require('moment');// 时间
 const schedule = require('node-schedule'); // 定时任务
 const YAML = require('yamljs'); //读取配置文件
-const fs = require("fs"); 
+const fs = require("fs"); // 解析
+const sendMail = require('./mail') //发送邮件
 ```
 
 ## 安装依赖
@@ -44,6 +47,8 @@ npm install
 
 ## 修改账户密码和其他
 
+main.yml 配置文件
+
 ```yml
 config: 
 # 显示UI
@@ -57,6 +62,8 @@ user:
   campus: 创新港校区
 # 每天8点和13点的1分30秒定时执行一次
 scheduleJob: 30 1 8,13 * * *
+# 接受打卡成功反馈的邮箱
+revMail: xxxx@xx.xx
 ```
 
 ## 测试

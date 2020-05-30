@@ -1,8 +1,9 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer');//模拟操作
 const moment = require('moment');// 时间
 const schedule = require('node-schedule'); // 定时任务
 const YAML = require('yamljs'); //读取配置文件
-const fs = require("fs"); 
+const fs = require("fs"); // 解析
+const sendMail = require('./mail') //发送邮件
 yaml_file="main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 function my() {
@@ -62,8 +63,6 @@ function my() {
       
       //开始填报
       await page.waitFor(12000)
-      console.log('开始填报'+moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss'))
-  
       await page.evaluate((data) => {
         var my=(document.getElementsByTagName("iframe")[2]).contentDocument.getElementsByTagName("iframe")[0];
         //随机温度
@@ -95,9 +94,12 @@ function my() {
       var done= await frame_5_1.waitForSelector("#mini-17")
       await  done.click()
       // 截图
-      await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_2.png"});//截个图
+      var screenshot_dir_2=moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_2.png"
+      await page.screenshot({path: screenshot_dir_2});//截个图
       await browser.close()
       console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报")
+      // 发送邮件
+      sendMail(data['revMail'], screenshot_dir_2, screenshot_dir_2,"./"+screenshot_dir_2)
   })()
   
 
