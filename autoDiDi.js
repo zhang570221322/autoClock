@@ -44,7 +44,7 @@ function my() {
       await page.click('.header > .hall-tabs > ul > li:nth-child(1) > a')
       await navigationPromise
 
-      if (data['type'] != "本科生") {
+      if (data['user']['type']  == "研究生") {
           // 选择研究生填报
           await page.waitFor(3000)
           frames1= await page.frames()
@@ -52,7 +52,7 @@ function my() {
           await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
           await frame_48.click('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
           await navigationPromise
-      } else {
+      } else if(data['user']['type']  == "本科生") {
           // 选择本科生填报
           await page.waitFor(3000)
           frames1= await page.frames()
@@ -60,6 +60,8 @@ function my() {
           await frame_48.waitForSelector('#popular-services > li:nth-child(2) > .card-link > .card-info-box > .card-info > .service-name')
           await frame_48.click('#popular-services > li:nth-child(2) > .card-link > .card-info-box > .card-info > .service-name')
           await navigationPromise
+      }else{
+        console.log("data['user']['type']："+data['user']['type']+"输入有误");
       }
   
       //选择返校后填报
@@ -108,7 +110,7 @@ function my() {
       await browser.close()
       console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报")
       // 发送邮件
-      sendMail(data['revMail'], screenshot_dir_2, screenshot_dir_2,"./"+screenshot_dir_2)
+      sendMail(data['user']['revMail'], screenshot_dir_2, screenshot_dir_2,"./"+screenshot_dir_2)
   })()
   
 

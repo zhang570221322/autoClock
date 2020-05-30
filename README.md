@@ -64,6 +64,8 @@ user:
 scheduleJob: 30 1 8,13 * * *
 # 接受打卡成功反馈的邮箱
 revMail: xxxx@xx.xx
+# 本科生 || 研究生
+type: 研究生
 ```
 
 ## 测试

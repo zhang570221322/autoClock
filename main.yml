@@ -2,15 +2,15 @@ config:
 # 显示UI
 # linux下必须为true
   noShowUI: false
+# 每天8点和13点的1分30秒定时执行一次
+  scheduleJob: 30 1 8,13 * * *
 user: 
-  username: skyeye977
-  password: yang156
+  username: xxxxxx
+  password: xxxxxx
+  # 本科生 || 研究生
+  type: 研究生               
   # 到过校园
   # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
   campus: 创新港校区
-# 每天8点和13点的1分30秒定时执行一次
-scheduleJob: 30 1 8,13 * * *
-# 接受打卡成功反馈的邮箱
-revMail: xxxxxxxxx@qq.com
-type: 研究生
-# 本科生 || 研究生
+  # 接受打卡成功反馈的邮箱
+  revMail: xxxxxxxxx@qq.com
