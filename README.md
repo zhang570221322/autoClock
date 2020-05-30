@@ -87,6 +87,12 @@ node autoDiDi_test.js
 node autoDiDi.js
 ```
 
+> linux 下后台运行
+
+```bash
+nohup  node autoDiDi.js > log.out 2>&1 &
+```
+
 脚本定时执行，一次打卡成功会生成日志和两张截图.   
 截图命名方式为`YYYY-MM-DD-HH-mm-ss_1.png` ,  `YYYY-MM-DD-HH-mm-ss_2.png`
 
