@@ -15,6 +15,8 @@ var nodemailer = require('nodemailer')
 var smtpTransport = require('nodemailer-smtp-transport');
 smtpTransport = nodemailer.createTransport(smtpTransport({
     host:email_host,
+    port: 465,
+    secure: true, // true for 465, false for other ports
     auth: {
         user: email_user,
         pass: email_pass
@@ -45,8 +47,9 @@ var sendMail = function (recipient, subject,filename,path) {
         if (error) {
             console.log("邮件发送失败");
             console.log(error);
-        }
+        }else{
         console.log('邮件至:'+recipient+"成功")
+    }
     });
 }
  

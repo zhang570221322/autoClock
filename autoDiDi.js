@@ -110,7 +110,7 @@ function my() {
       await browser.close()
       console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报")
       // 发送邮件
-      sendMail(data['user']['revMail'], screenshot_dir_2, screenshot_dir_2,"./"+screenshot_dir_2)
+      sendMail(data['user']['revMail'], "打卡成功", screenshot_dir_2,"./"+screenshot_dir_2)
   })()
   
 
