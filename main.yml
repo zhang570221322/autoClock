@@ -2,8 +2,8 @@ config:
 # 显示UI
 # linux下必须为true
   noShowUI: false
-# 每天8点和13点的1分30秒定时执行一次
-  scheduleJob: 30 1 8,13 * * *
+# 每天10点和16点的1分20秒定时执行一次
+  scheduleJob: 20 1 10,16 * * *
 user: 
   username: xxxxxx
   password: xxxxxx

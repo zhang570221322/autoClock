@@ -54,8 +54,8 @@ config:
 # 显示UI
 # linux下必须为true
   noShowUI: false
-# 每天8点和13点的1分30秒定时执行一次
-  scheduleJob: 30 1 8,13 * * *
+# 每天10点和16点的1分20秒定时执行一次
+  scheduleJob: 20 1 10,16 * * *
 user: 
   username: xxxxxx
   password: xxxxxx
@@ -95,6 +95,18 @@ nohup  node autoDiDi.js > log.out 2>&1 &
 
 脚本定时执行，一次打卡成功会生成日志和两张截图.   
 截图命名方式为`YYYY-MM-DD-HH-mm-ss_1.png` ,  `YYYY-MM-DD-HH-mm-ss_2.png`
+
+## 添加注册为windows服务模式
+
+> 推荐一个工具 easy-service
+
+> 依赖配置好以后
+
+```bash
+node autoDiDi_service_mode.js
+# 运行task.bat，执行一次 
+# 可以注册为系统定时任务
+```
 
 ## Q&A
 
