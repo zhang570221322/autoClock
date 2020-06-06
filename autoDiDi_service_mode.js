@@ -32,7 +32,7 @@ function my() {
       // 登陆
       const username= await page.waitForSelector('.main > .main_info > .loginState > #form1 > .username')
       // 账户
-      await username.type(data['user']['username'], {delay: 1});
+      await username.type(String(data['user']['username']), {delay: 1});
       // 密码
       const password = await page.waitForSelector('.main > .main_info > .loginState > #form1 > .pwd')
       await password.type(String(data['user']['password']), {delay: 1});
