@@ -20,6 +20,11 @@
 
 > 打卡成功会发送截图至反馈邮箱
 
+## 软件包
+
+[nodejs32位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x86.msi)   
+[nodejs64位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x64.msi)
+
 ## 依赖
 
 ```js
