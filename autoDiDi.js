@@ -128,6 +128,4 @@ const  scheduleCronstyle = ()=>{
     }); 
 }
 
-// scheduleCronstyle();
-my()
- 
+scheduleCronstyle();
