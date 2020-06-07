@@ -8,8 +8,11 @@ yaml_file="main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 function my() {
   (async () => { 
+  //  遍历users
+    for(id in data['users']){
+    // 锁定user
+       _user=data['users'][id];
     console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报")
-    
     const browser = await puppeteer.launch({
       slowMo: 20,    //放慢速度
       headless: data['config']['noShowUI'],
@@ -32,10 +35,10 @@ function my() {
       // 登陆
       const username= await page.waitForSelector('.main > .main_info > .loginState > #form1 > .username')
       // 账户
-      await username.type(String(data['user']['username']), {delay: 1});
+      await username.type(String(_user['username']), {delay: 1});
       // 密码
       const password = await page.waitForSelector('.main > .main_info > .loginState > #form1 > .pwd')
-      await password.type(String(data['user']['password']), {delay: 1});
+      await password.type(String(_user['password']), {delay: 1});
       await page.waitForSelector('.organizational #account_login')
       await page.click('.organizational #account_login') 
       await navigationPromise
@@ -44,7 +47,7 @@ function my() {
       await page.click('.header > .hall-tabs > ul > li:nth-child(1) > a')
       await navigationPromise
 
-      if (data['user']['type']  == "研究生") {
+      if (_user['type']  == "研究生") {
           // 选择研究生填报
           await page.waitFor(3000)
           frames1= await page.frames()
@@ -52,7 +55,7 @@ function my() {
           await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
           await frame_48.click('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
           await navigationPromise
-      } else if(data['user']['type']  == "本科生") {
+      } else if(_user['type']  == "本科生") {
           // 选择本科生填报
           await page.waitFor(3000)
           frames1= await page.frames()
@@ -61,7 +64,7 @@ function my() {
           await frame_48.click('#popular-services > li:nth-child(2) > .card-link > .card-info-box > .card-info > .service-name')
           await navigationPromise
       }else{
-        console.log("data['user']['type']："+data['user']['type']+"输入有误");
+        console.log("_user['type']："+_user['type']+"输入有误");
       }
   
       //选择返校后填报
@@ -83,7 +86,7 @@ function my() {
         // 到过校园
         my.contentDocument.querySelector("#mini-72\\$ck\\$0").click();
         // 哪个校园
-        my.contentDocument.querySelector("#XQ\\$value").value=data['user']['campus']
+        my.contentDocument.querySelector("#XQ\\$value").value=_user['campus']
         // 36.5
         my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
         my.contentWindow.mini.get("BRTW").value="36."+random
@@ -110,8 +113,10 @@ function my() {
       await browser.close()
       console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报")
       // 发送邮件
-      sendMail(data['user']['revMail'], "打卡成功", screenshot_dir_2,"./"+screenshot_dir_2)
-  })()
+      sendMail(_user['revMail'], "打卡成功", screenshot_dir_2,"./"+screenshot_dir_2)
+  
+    }
+    })()
   
 
 }
@@ -119,9 +124,10 @@ function my() {
 const  scheduleCronstyle = ()=>{
 
     schedule.scheduleJob( data['config']['scheduleJob'],()=>{
-      my()
+        my()
     }); 
 }
 
-scheduleCronstyle();
-
+// scheduleCronstyle();
+my()
+ 

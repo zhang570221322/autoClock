@@ -61,16 +61,51 @@ config:
   noShowUI: false
 # 每天10点和16点的1分20秒定时执行一次
   scheduleJob: 20 1 10,16 * * *
-user: 
-  username: xxxxxx
-  password: xxxxxx
-  # 本科生 || 研究生
-  type: 研究生
-  # 到过校园
-  # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
-  campus: 创新港校区
-  # 接受打卡成功反馈的邮箱
-  revMail: xxxxxxxxx@qq.com
+users: 
+  -
+    # 用户1
+    username: xxxxxx
+    password: xxxxxx
+    # 本科生 || 研究生
+    type: 研究生
+    # 到过校园
+    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
+    campus: 创新港校区
+    # 接受打卡成功反馈的邮箱
+    revMail: xxxxxxxxx@qq.com
+  -
+    #用户2
+    username: 2
+    password: xxxxxx
+    # 本科生 || 研究生
+    type: 研究生
+    # 到过校园
+    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
+    campus: 创新港校区
+    # 接受打卡成功反馈的邮箱
+    revMail: xxxxxxxxx@qq.com
+  -
+    #用户3
+    username: 3
+    password: xxxxxx
+    # 本科生 || 研究生
+    type: 研究生
+    # 到过校园
+    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
+    campus: 创新港校区
+    # 接受打卡成功反馈的邮箱
+    revMail: xxxxxxxxx@qq.com
+  -
+    #用户4
+    username: 4
+    password: xxxxxx
+    # 本科生 || 研究生
+    type: 研究生
+    # 到过校园
+    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
+    campus: 创新港校区
+    # 接受打卡成功反馈的邮箱
+    revMail: xxxxxxxxx@qq.com
 ```
 
 ## 测试
@@ -142,3 +177,9 @@ yum install gtk3 -y
 原始是因为linux默认不安装中文字体  
 此错误不解决，不影响程序功能   
 解决可参考博客 [Linux安装中文字体](https://www.cnblogs.com/huangyanqi/p/10609587.html)
+
+## 更新
+
+1. 2020年6月7日 22点49分
+
+新增多用户,只对autoDiDi.js修改. 
