@@ -77,7 +77,7 @@ function my() {
 
       // 开始填报
       await page.waitFor(12000)
-      await page.evaluate((data) => {
+      await page.evaluate((_user) => {
         var my=(document.getElementsByTagName("iframe")[2]).contentDocument.getElementsByTagName("iframe")[0];
         // 随机温度
         var random=Math.floor(Math.random()*10);
@@ -90,7 +90,7 @@ function my() {
         // 36.5
         my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
         my.contentWindow.mini.get("BRTW").value="36."+random
-      },data)
+      },_user)
   
       // 提交按钮
       frames4 = await page.frames()
@@ -129,3 +129,4 @@ const  scheduleCronstyle = ()=>{
 }
 
 scheduleCronstyle();
+ 
