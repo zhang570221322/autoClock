@@ -52,16 +52,16 @@ function my() {
           await page.waitFor(3000)
           frames1= await page.frames()
           const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
-          await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
-          await frame_48.click('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
-          await navigationPromise
+          await frame_48.waitForSelector('#popular-services > li:nth-child(2) > a')
+          await frame_48.click('#popular-services > li:nth-child(2) > a')
+          await navigationPromise 
       } else if(_user['type']  == "本科生") {
           // 选择本科生填报
           await page.waitFor(3000)
           frames1= await page.frames()
           const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
-          await frame_48.waitForSelector('#popular-services > li:nth-child(2) > .card-link > .card-info-box > .card-info > .service-name')
-          await frame_48.click('#popular-services > li:nth-child(2) > .card-link > .card-info-box > .card-info > .service-name')
+          await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
+          await frame_48.click('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
           await navigationPromise
       }else{
         console.log("_user['type']："+_user['type']+"输入有误");
@@ -129,4 +129,4 @@ const  scheduleCronstyle = ()=>{
 }
 
 scheduleCronstyle();
- 
+// my();
