@@ -131,6 +131,8 @@ node autoDiDi.js
 
 ```bash
 nohup  node autoDiDi.js > log.out 2>&1 &
+# 必须通过exit 退出xshell
+exit
 ```
 
 脚本定时执行，一次打卡成功会生成日志和两张截图.   
@@ -183,3 +185,7 @@ yum install gtk3 -y
 1. 2020年6月7日 22点49分
 
 新增多用户,只对autoDiDi.js修改. 
+
+2. 2020年6月12日09:19:28
+
+解决Bug，因为研究生按钮和本科生按钮换了css位置.
