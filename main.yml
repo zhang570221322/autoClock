@@ -27,25 +27,3 @@ users:
     campus: 创新港校区
     # 接受打卡成功反馈的邮箱
     revMail: xxxxxxxxx@qq.com
-  -
-    #用户3
-    username: 3
-    password: xxxxxx
-    # 本科生 || 研究生
-    type: 研究生               
-    # 到过校园
-    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
-    campus: 创新港校区
-    # 接受打卡成功反馈的邮箱
-    revMail: xxxxxxxxx@qq.com
-  -
-    #用户4
-    username: 4
-    password: xxxxxx
-    # 本科生 || 研究生
-    type: 研究生               
-    # 到过校园
-    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
-    campus: 创新港校区
-    # 接受打卡成功反馈的邮箱
-    revMail: xxxxxxxxx@qq.com
