@@ -33,7 +33,7 @@ var sendMail = function (recipient, subject,filename,path) {
         from: email_user,
         to: recipient,
         subject: subject,
-        html:'<p>Clock Successfully .Have a nice day!</p>',
+        html:'<p>Have a nice day!</p>',
         //附加文件，提供cid给上面的img调用
         attachments:[
             {
