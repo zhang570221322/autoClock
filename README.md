@@ -189,3 +189,9 @@ yum install gtk3 -y
 2. 2020年6月12日09:19:28
 
 解决Bug，因为研究生按钮和本科生按钮换了css位置.
+
+3. 2020年6月14日07:37:25
+
+解决Bug， Cannot read property 'contentDocument' of undefined  
+换为page.frame方式找到iframe，然后evaluate操作DOM  
+更新autoDiDi_servidce_mode和autoDiDi_test  

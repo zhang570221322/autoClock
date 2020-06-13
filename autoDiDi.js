@@ -77,21 +77,22 @@ function my() {
         await frame_50.click('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
         await navigationPromise
 
-        // 开始填报
+          // 开始填报
         await page.waitFor(12000)
-        await page.evaluate((_user) => {
-          var my=(document.getElementsByTagName("iframe")[2]).contentDocument.getElementsByTagName("iframe")[0];
+        frames2= await page.frames()
+        const frame_51 = frames2.find(f => f.url().includes('flow/flowForm'))
+        await frame_51.evaluate((_user) => {
           // 随机温度
           var random=Math.floor(Math.random()*10);
           // 绿色
-          my.contentDocument.querySelector("#mini-2\\$ck\\$2").click();
+          document.querySelector("#mini-2\\$ck\\$2").click();
           // 到过校园
-          my.contentDocument.querySelector("#mini-72\\$ck\\$0").click();
+          document.querySelector("#mini-72\\$ck\\$0").click();
           // 哪个校园
-          my.contentDocument.querySelector("#XQ\\$value").value=_user['campus']
+          document.querySelector("#XQ\\$value").value=_user['campus']
           // 36.5
-          my.contentDocument.querySelector("#BRTW\\$text").value ="36."+random
-          my.contentWindow.mini.get("BRTW").value="36."+random
+          document.querySelector("#BRTW\\$text").value ="36."+random
+          mini.get("BRTW").value="36."+random
         },_user)
     
         // 提交按钮
