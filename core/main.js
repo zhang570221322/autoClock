@@ -6,7 +6,7 @@ const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
 yaml_file="main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
-function my() {
+function my(test) {
   (async () => { 
   //  遍历users
     for(id in data['users']){
@@ -43,7 +43,7 @@ function my() {
         await page.waitForSelector('.organizational #account_login')
         await page.click('.organizational #account_login') 
         await navigationPromise
-        await page.waitFor(3000)
+        await page.waitFor(30000)
         // 进入服务大厅
         await page.waitForSelector('.header > .hall-tabs > ul > li:nth-child(1) > a')
         await page.click('.header > .hall-tabs > ul > li:nth-child(1) > a')
@@ -51,7 +51,7 @@ function my() {
 
         if (_user['type']  == "研究生") {
             // 选择研究生填报
-            await page.waitFor(3000)
+            await page.waitFor(30000)
             frames1= await page.frames()
             const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
             await frame_48.waitForSelector('#popular-services > li:nth-child(2) > a')
@@ -59,7 +59,7 @@ function my() {
             await navigationPromise 
         } else if(_user['type']  == "本科生") {
             // 选择本科生填报
-            await page.waitFor(3000)
+            await page.waitFor(30000)
             frames1= await page.frames()
             const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
             await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
@@ -70,24 +70,24 @@ function my() {
         }
     
         //选择返校后填报
-        await page.waitFor(10000)
+        await page.waitFor(30000)
         frames2= await page.frames()
         const frame_50 =  frames2.find(f => f.url().includes('/elobby/service/start.htm'))
         await frame_50.waitForSelector('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
         await frame_50.click('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
         await navigationPromise
 
-          // 开始填报
-        await page.waitFor(12000)
+        // 开始填报
+        await page.waitFor(30000)
         frames2= await page.frames()
         const frame_51 = frames2.find(f => f.url().includes('flow/flowForm'))
         await frame_51.evaluate((_user) => {
           // 随机温度
           var random=Math.floor(Math.random()*10);
           // 绿色
-          document.querySelector("#mini-2\\$ck\\$2").click();
+          $(document.querySelector("#mini-2\\$ck\\$2")).click()
           // 到过校园
-          document.querySelector("#mini-72\\$ck\\$0").click();
+          document.querySelector("#mini-73\\$ck\\$0").click();
           // 哪个校园
           document.querySelector("#XQ\\$value").value=_user['campus']
           // 36.5
@@ -119,8 +119,10 @@ function my() {
         sendMail(_user['revMail'], "打卡成功 Clock Successfully ", screenshot_dir_2,"./"+screenshot_dir_2)
       }catch(err){
         console.log(err);
+        if(test){
         sendMail(_user['revMail'], "注意,打开失败，请手动打卡", screenshot_dir_2,"")
         await browser.close()
+      }
       }
   
     }
@@ -129,6 +131,5 @@ function my() {
 
 }
 
-
-
-my();
+ 
+module.exports = my;

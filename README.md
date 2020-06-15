@@ -25,30 +25,29 @@
 [nodejs32位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x86.msi)   
 [nodejs64位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x64.msi)
 
-## 依赖
 
-```js
-nodejs v12.16.3
-const puppeteer = require('puppeteer');//模拟操作
-const moment = require('moment');// 时间
-const schedule = require('node-schedule'); // 定时任务
-const YAML = require('yamljs'); //读取配置文件
-const fs = require("fs"); // 解析
-const sendMail = require('./mail') //发送邮件
-```
+## 快速开始
 
-## 安装依赖
-
-> 如果下载太慢,可添加以下镜像
-
-```js
-// 添加npm淘宝镜像
+```bash 
+git clone https://github.com/zhang570221322/autoClock
+cd autoClock
+# 添加npm淘宝镜像
 npm config set registry https://registry.npm.taobao.org
-// 添加electron淘宝镜像
+# 添加electron淘宝镜像
 npm config set ELECTRON_MIRROR https://npm.taobao.org/mirrors/electron/
-// 执行安装
+# 执行安装
 npm install
+
+## 修改账户密码和其他
+# 修改main.yml
+
+# 打开一次
+node temp_autoDiDi.js
+# 定时打开
+node autoDiDi.js
+
 ```
+
 
 ## 修改账户密码和其他
 
@@ -120,6 +119,8 @@ node autoDiDi_test.js
 测试成功会得到很多的截图  
 测试的截图命名时间格式为   `YYYY-MM-DD-HH-mm-ss_test.png`  
 最后一张截图为正在提交表示测试成功.
+
+
 
 ## 运行
 
@@ -195,3 +196,9 @@ yum install gtk3 -y
 解决Bug， Cannot read property 'contentDocument' of undefined  
 换为page.frame方式找到iframe，然后evaluate操作DOM  
 更新autoDiDi_servidce_mode和autoDiDi_test  
+
+4. 2020年6月15日08:30:17
+
+解决Bug，css位置又乱了。  
+服务器太慢，等待时间增加。  
+优化项目目录结构。  

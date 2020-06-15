@@ -1,1 +1,1 @@
-node autoDiDi_service_mode.js
+node tem_autoDiDi.js
