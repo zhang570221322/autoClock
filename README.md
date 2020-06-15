@@ -51,6 +51,8 @@ node autoDiDi.js
 
 ## 修改账户密码和其他
 
+如果觉得等待时间过长（默认50秒），可以改core/main.js的`const sleepTime=50000`  
+
 main.yml 配置文件
 
 ```yml

@@ -26,7 +26,7 @@ function my(test) {
       ignoreHTTPSErrors: false, //忽略 https 报错
       args: [`--window-size=${1540},${1080}`,'--no-sandbox', '--disable-setuid-sandbox','--start-fullscreen'] //全屏打开页面
   });
-       const sleepTime=10000
+       const sleepTime=50000
       try{
         const page = await browser.newPage()
         const navigationPromise = page.waitForNavigation()
@@ -133,7 +133,7 @@ function my(test) {
         await browser.close()
         console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报"+"----"+String(_user['username']))
         // 发送邮件
-        // sendMail(_user['revMail'], "打卡成功 Clock Successfully ", screenshot_dir_2,"./"+screenshot_dir_2)
+        sendMail(_user['revMail'], "打卡成功 Clock Successfully ", screenshot_dir_2,"./"+screenshot_dir_2)
       }catch(err){
         console.log(err);
         if(test){
