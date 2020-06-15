@@ -107,26 +107,7 @@ users:
     revMail: xxxxxxxxx@qq.com
 ```
 
-## 测试
 
-```js
-// 进行一次打卡
-// 保存多张截图
-node autoDiDi_test.js
-```
-
-在没有打过卡的前提下  
-测试成功会得到很多的截图  
-测试的截图命名时间格式为   `YYYY-MM-DD-HH-mm-ss_test.png`  
-最后一张截图为正在提交表示测试成功.
-
-
-
-## 运行
-
-```js
-node autoDiDi.js
-```
 
 > linux 下后台运行
 
@@ -146,7 +127,7 @@ exit
 > 依赖配置好以后
 
 ```bash
-node autoDiDi_service_mode.js
+node temp_autoDiDi.js
 # 运行task.bat，执行一次 
 # 可以注册为系统定时任务
 ```

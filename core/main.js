@@ -4,7 +4,7 @@ const schedule = require('node-schedule'); // 定时任务
 const YAML = require('yamljs'); //读取配置文件
 const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
-yaml_file="main.yml" //配置文件路径
+yaml_file="temp_main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 function my(test) {
   (async () => { 
@@ -12,7 +12,7 @@ function my(test) {
     for(id in data['users']){
     // 锁定user
        _user=data['users'][id];
-    console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报")
+    console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报"+"----"+String(_user['username']))
     const browser = await puppeteer.launch({
       slowMo: 20,    //放慢速度
       headless: data['config']['noShowUI'],
@@ -26,13 +26,14 @@ function my(test) {
       ignoreHTTPSErrors: false, //忽略 https 报错
       args: [`--window-size=${1540},${1080}`,'--no-sandbox', '--disable-setuid-sandbox','--start-fullscreen'] //全屏打开页面
   });
+       const sleepTime=10000
       try{
         const page = await browser.newPage()
         const navigationPromise = page.waitForNavigation()
         
         await page.goto('http://one2020.xjtu.edu.cn/EIP/user/index.htm')
       
-    
+         
         // 登陆
         const username= await page.waitForSelector('.main > .main_info > .loginState > #form1 > .username')
         // 账户
@@ -43,7 +44,7 @@ function my(test) {
         await page.waitForSelector('.organizational #account_login')
         await page.click('.organizational #account_login') 
         await navigationPromise
-        await page.waitFor(30000)
+        await page.waitFor(sleepTime)
         // 进入服务大厅
         await page.waitForSelector('.header > .hall-tabs > ul > li:nth-child(1) > a')
         await page.click('.header > .hall-tabs > ul > li:nth-child(1) > a')
@@ -51,7 +52,7 @@ function my(test) {
 
         if (_user['type']  == "研究生") {
             // 选择研究生填报
-            await page.waitFor(30000)
+            await page.waitFor(sleepTime)
             frames1= await page.frames()
             const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
             await frame_48.waitForSelector('#popular-services > li:nth-child(2) > a')
@@ -59,7 +60,7 @@ function my(test) {
             await navigationPromise 
         } else if(_user['type']  == "本科生") {
             // 选择本科生填报
-            await page.waitFor(30000)
+            await page.waitFor(sleepTime)
             frames1= await page.frames()
             const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
             await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
@@ -70,7 +71,7 @@ function my(test) {
         }
     
         //选择返校后填报
-        await page.waitFor(30000)
+        await page.waitFor(sleepTime)
         frames2= await page.frames()
         const frame_50 =  frames2.find(f => f.url().includes('/elobby/service/start.htm'))
         await frame_50.waitForSelector('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
@@ -78,7 +79,7 @@ function my(test) {
         await navigationPromise
 
         // 开始填报
-        await page.waitFor(30000)
+        await page.waitFor(sleepTime)
         frames2= await page.frames()
         const frame_51 = frames2.find(f => f.url().includes('flow/flowForm'))
         await frame_51.evaluate((_user) => {
@@ -86,6 +87,15 @@ function my(test) {
           var random=Math.floor(Math.random()*10);
           // 绿色
           $(document.querySelector("#mini-2\\$ck\\$2")).click()
+          //上午下午
+          if (new Date().getHours() < 12) {
+          document.querySelector("#SXW\\$value").value="上午"
+          mini.get("SXW").value="上午"
+           }else{
+            document.querySelector("#SXW\\$value").value="下午"
+            mini.get("SXW").value="下午"
+           }
+
           // 到过校园
           document.querySelector("#mini-73\\$ck\\$0").click();
           // 哪个校园
@@ -102,7 +112,7 @@ function my(test) {
         await frame_53.click('table #sendBtn')
         // 截图
         await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_1.png"});//截个图
-    
+        
         // 确定按钮
         await page.waitFor(5000)
         frames5 = await page.frames()
@@ -113,10 +123,17 @@ function my(test) {
         // 截图
         var screenshot_dir_2=moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_2.png"
         await page.screenshot({path: screenshot_dir_2});//截个图
+        await page.waitFor(sleepTime)
+         //验证打卡成功否
+        await page.waitFor(sleepTime)
+        frames2= await page.frames()
+        const frame_55 =  frames2.find(f => f.url().includes('/elobby/service/start.htm'))
+        await frame_55.waitForSelector('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
+        await frame_55.click('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
         await browser.close()
-        console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报")
+        console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报"+"----"+String(_user['username']))
         // 发送邮件
-        sendMail(_user['revMail'], "打卡成功 Clock Successfully ", screenshot_dir_2,"./"+screenshot_dir_2)
+        // sendMail(_user['revMail'], "打卡成功 Clock Successfully ", screenshot_dir_2,"./"+screenshot_dir_2)
       }catch(err){
         console.log(err);
         if(test){
