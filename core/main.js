@@ -4,7 +4,7 @@ const schedule = require('node-schedule'); // 定时任务
 const YAML = require('yamljs'); //读取配置文件
 const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
-yaml_file="main.yml" //配置文件路径
+yaml_file="./main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 function my(test) {
   (async () => { 
@@ -26,7 +26,7 @@ function my(test) {
       ignoreHTTPSErrors: false, //忽略 https 报错
       args: [`--window-size=${1540},${1080}`,'--no-sandbox', '--disable-setuid-sandbox','--start-fullscreen'] //全屏打开页面
   });
-       const sleepTime=50000
+       const sleepTime=5000
       try{
         const page = await browser.newPage()
         const navigationPromise = page.waitForNavigation()
@@ -45,26 +45,25 @@ function my(test) {
         await page.click('.organizational #account_login') 
         await navigationPromise
         await page.waitFor(sleepTime)
-        // 进入服务大厅
-        await page.waitForSelector('.header > .hall-tabs > ul > li:nth-child(1) > a')
-        await page.click('.header > .hall-tabs > ul > li:nth-child(1) > a')
+        // 健康每日报
+        await page.goto('http://jkrb.xjtu.edu.cn/EIP/user/index.htm')
         await navigationPromise
 
         if (_user['type']  == "研究生") {
             // 选择研究生填报
             await page.waitFor(sleepTime)
             frames1= await page.frames()
-            const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
-            await frame_48.waitForSelector('#popular-services > li:nth-child(2) > a')
-            await frame_48.click('#popular-services > li:nth-child(2) > a')
+            const frame_48 =  frames1.find(f => f.url().includes('elobby/service/portlet.htm'))
+            await frame_48.waitForSelector('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(2) > div > a > div > div')
+            await frame_48.click('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(2) > div > a > div > div')
             await navigationPromise 
         } else if(_user['type']  == "本科生") {
             // 选择本科生填报
             await page.waitFor(sleepTime)
             frames1= await page.frames()
-            const frame_48 =  frames1.find(f => f.url().includes('nonlogin/visitor/hallPage.htm'))
-            await frame_48.waitForSelector('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
-            await frame_48.click('#popular-services > li:nth-child(3) > .card-link > .card-info-box > .card-info > .service-name')
+            const frame_48 =  frames1.find(f => f.url().includes('elobby/service/portlet.htm'))
+            await frame_48.waitForSelector('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(3) > div > a > div > div')
+            await frame_48.click('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(3) > div > a > div > div')
             await navigationPromise
         }else{
           console.log("_user['type']："+_user['type']+"输入有误");
@@ -74,11 +73,13 @@ function my(test) {
         await page.waitFor(sleepTime)
         frames2= await page.frames()
         const frame_50 =  frames2.find(f => f.url().includes('/elobby/service/start.htm'))
-        await frame_50.waitForSelector('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
-        await frame_50.click('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
+        await frame_50.waitForSelector('body > div > div.service-right-sidebar > div.service-entrance > ul > li:nth-child(2)')
+        await frame_50.click('body > div > div.service-right-sidebar > div.service-entrance > ul > li:nth-child(2)')
         await navigationPromise
 
         // 开始填报
+        await page.waitFor(sleepTime)
+        await page.waitFor(sleepTime)
         await page.waitFor(sleepTime)
         frames2= await page.frames()
         const frame_51 = frames2.find(f => f.url().includes('flow/flowForm'))
@@ -87,15 +88,6 @@ function my(test) {
           var random=Math.floor(Math.random()*10);
           // 绿色
           $(document.querySelector("#mini-2\\$ck\\$2")).click()
-          //上午下午
-          if (new Date().getHours() < 12) {
-          document.querySelector("#SXW\\$value").value="上午"
-          mini.get("SXW").value="上午"
-           }else{
-            document.querySelector("#SXW\\$value").value="下午"
-            mini.get("SXW").value="下午"
-           }
-
           // 到过校园
           document.querySelector("#mini-73\\$ck\\$0").click();
           // 哪个校园
@@ -104,6 +96,19 @@ function my(test) {
           document.querySelector("#BRTW\\$text").value ="36."+random
           mini.get("BRTW").value="36."+random
         },_user)
+        //上午下午
+        const x_y=(await (await frame_51.$("#SXW > .mini-buttonedit-border > .mini-buttonedit-buttons > .mini-buttonedit-button")).boundingBox());
+        await page.mouse.move(x_y['x'],x_y['y']);
+        await page.mouse.down();
+        await page.mouse.up();
+        if (new Date().getHours() < 12) {
+          frame_51.click('.mini-grid-rows-content > .mini-listbox-items > tbody > #mini-72\\$0 > td:nth-child(2)')
+        }else{
+          // document.querySelector("#SXW\\$value").value="下午"
+          // mini.get("SXW").value="下午"
+          frame_51.click('.mini-grid-rows-content > .mini-listbox-items > tbody > #mini-72\\$1 > td:nth-child(2)')
+        }
+        
     
         // 提交按钮
         frames4 = await page.frames()
@@ -114,7 +119,7 @@ function my(test) {
         await page.screenshot({path: moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+"_1.png"});//截个图
         
         // 确定按钮
-        await page.waitFor(5000)
+        await page.waitFor(sleepTime)
         frames5 = await page.frames()
         const frame_5_1 = frames5.find(f => f.url().includes('cooperative/openCooperative.htm'))
         // 确定

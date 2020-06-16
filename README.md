@@ -51,7 +51,7 @@ node autoDiDi.js
 
 ## 修改账户密码和其他
 
-如果觉得等待时间过长（默认50秒），可以改core/main.js的`const sleepTime=50000`  
+如果觉得网速过慢（默认5秒），可以改core/main.js的`const sleepTime=5000`  
 
 main.yml 配置文件
 
@@ -77,28 +77,6 @@ users:
   -
     #用户2
     username: 2
-    password: xxxxxx
-    # 本科生 || 研究生
-    type: 研究生
-    # 到过校园
-    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
-    campus: 创新港校区
-    # 接受打卡成功反馈的邮箱
-    revMail: xxxxxxxxx@qq.com
-  -
-    #用户3
-    username: 3
-    password: xxxxxx
-    # 本科生 || 研究生
-    type: 研究生
-    # 到过校园
-    # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
-    campus: 创新港校区
-    # 接受打卡成功反馈的邮箱
-    revMail: xxxxxxxxx@qq.com
-  -
-    #用户4
-    username: 4
     password: xxxxxx
     # 本科生 || 研究生
     type: 研究生
@@ -185,3 +163,7 @@ yum install gtk3 -y
 解决Bug，css位置又乱了。  
 服务器太慢，等待时间增加。  
 优化项目目录结构。  
+
+5. 2020年6月16日09:28:36 
+
+适应新版
