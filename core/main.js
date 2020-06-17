@@ -4,7 +4,7 @@ const schedule = require('node-schedule'); // 定时任务
 const YAML = require('yamljs'); //读取配置文件
 const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
-yaml_file="./main.yml" //配置文件路径
+yaml_file="./temp_main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 function my(test) {
   (async () => { 
@@ -95,6 +95,10 @@ function my(test) {
           // 36.5
           document.querySelector("#BRTW\\$text").value ="36."+random
           mini.get("BRTW").value="36."+random
+          // 近14日内本人或家属是否去过中高风险区？
+          document.querySelector("#mini-96\\$ck\\$1").click()
+          // 14日内本人或家属是否同中高风险区返回人员接触过？
+          document.querySelector("#mini-100\\$ck\\$1").click()
         },_user)
         //上午下午
         const x_y=(await (await frame_51.$("#SXW > .mini-buttonedit-border > .mini-buttonedit-buttons > .mini-buttonedit-button")).boundingBox());
@@ -142,7 +146,7 @@ function my(test) {
       }catch(err){
         console.log(err);
         if(test){
-        sendMail(_user['revMail'], "注意,打开失败，请手动打卡", screenshot_dir_2,"")
+        sendMail(_user['revMail'], "注意,打开失败或已经打过卡，如无，请手动打卡", screenshot_dir_2,"")
         await browser.close()
       }
       }
