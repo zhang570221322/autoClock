@@ -89,29 +89,29 @@ function my(test) {
           // 绿色
           $(document.querySelector("#mini-2\\$ck\\$2")).click()
           // 到过校园
-          document.querySelector("#mini-73\\$ck\\$0").click();
+          document.querySelector("#mini-72\\$ck\\$0").click();
           // 哪个校园
-          document.querySelector("#XQ\\$value").value=_user['campus']
-          // 36.5
+          document.querySelector("#SZXQ\\$value").value=_user['campus']
+          // 36.5 
           document.querySelector("#BRTW\\$text").value ="36."+random
           mini.get("BRTW").value="36."+random
           // 近14日内本人或家属是否去过中高风险区？
-          document.querySelector("#mini-96\\$ck\\$1").click()
+          document.querySelector("#mini-95\\$ck\\$1").click()
           // 14日内本人或家属是否同中高风险区返回人员接触过？
-          document.querySelector("#mini-100\\$ck\\$1").click()
+          document.querySelector("#mini-99\\$ck\\$1").click()
         },_user)
         //上午下午
-        const x_y=(await (await frame_51.$("#SXW > .mini-buttonedit-border > .mini-buttonedit-buttons > .mini-buttonedit-button")).boundingBox());
-        await page.mouse.move(x_y['x'],x_y['y']);
-        await page.mouse.down();
-        await page.mouse.up();
-        if (new Date().getHours() < 12) {
-          frame_51.click('.mini-grid-rows-content > .mini-listbox-items > tbody > #mini-72\\$0 > td:nth-child(2)')
-        }else{
-          // document.querySelector("#SXW\\$value").value="下午"
-          // mini.get("SXW").value="下午"
-          frame_51.click('.mini-grid-rows-content > .mini-listbox-items > tbody > #mini-72\\$1 > td:nth-child(2)')
-        }
+        // const x_y=(await (await frame_51.$("#SXW > .mini-buttonedit-border > .mini-buttonedit-buttons > .mini-buttonedit-button")).boundingBox());
+        // await page.mouse.move(x_y['x'],x_y['y']);
+        // await page.mouse.down();
+        // await page.mouse.up();
+        // if (new Date().getHours() < 12) {
+        //   frame_51.click('.mini-grid-rows-content > .mini-listbox-items > tbody > #mini-72\\$0 > td:nth-child(2)')
+        // }else{
+        //   // document.querySelector("#SXW\\$value").value="下午"
+        //   // mini.get("SXW").value="下午"
+        //   frame_51.click('.mini-grid-rows-content > .mini-listbox-items > tbody > #mini-72\\$1 > td:nth-child(2)')
+        // }
         
     
         // 提交按钮
