@@ -54,16 +54,16 @@ function my(test) {
             await page.waitFor(sleepTime)
             frames1= await page.frames()
             const frame_48 =  frames1.find(f => f.url().includes('elobby/service/portlet.htm'))
-            await frame_48.waitForSelector('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(2) > div > a > div > div')
-            await frame_48.click('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(2) > div > a > div > div')
+            await frame_48.waitForSelector('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(1) > div > a > div > div')
+            await frame_48.click('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(1) > div > a > div > div')
             await navigationPromise 
         } else if(_user['type']  == "本科生") {
             // 选择本科生填报
             await page.waitFor(sleepTime)
             frames1= await page.frames()
             const frame_48 =  frames1.find(f => f.url().includes('elobby/service/portlet.htm'))
-            await frame_48.waitForSelector('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(3) > div > a > div > div')
-            await frame_48.click('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(3) > div > a > div > div')
+            await frame_48.waitForSelector('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(2) > div > a > div > div')
+            await frame_48.click('#form > div.service-wrap > div > ul.service-hall.hottest-services > li:nth-child(2) > div > a > div > div')
             await navigationPromise
         }else{
           console.log("_user['type']："+_user['type']+"输入有误");
