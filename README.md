@@ -114,56 +114,58 @@ node temp_autoDiDi.js
 
 ## Q&A
 
-- linux下报错
-
-```bash
-# linux下报错
-(node:27123) UnhandledPromiseRejectionWarning: Error: Failed to launch the browser process!
-/root/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/chrome: error while loading shared libraries: libatk-bridge-2.0.so.0: cannot open shared object file: No such file or directory
-# 解决办法 (因为缺少依赖)
-cd /root/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/
-# 检查缺少依赖
-ldd chrome|grep not
-# 结果
-libatk-bridge-2.0.so.0 => not found
-libXss.so.1 => not found
-libatspi.so.0 => not found
-libgtk-3.so.0 => not found
-libgdk-3.so.0 => not found
-# 安装依赖
-yum install at-spi2-atk -y
-yum install libXScrnSaver* -y
-yum install gtk3 -y
-```
-
-- linux下截图乱码
-
+- linux下报错   Failed to launch the browser process!
+  ```bash
+  # linux下报错
+  (node:27123) UnhandledPromiseRejectionWarning: Error: Failed to launch the browser process!
+  /root/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/chrome: error while loading shared libraries: libatk-bridge-2.0.so.0: cannot open shared object file: No such file or directory
+  # 解决办法 (因为缺少依赖)
+  cd /root/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/
+  # 检查缺少依赖
+  ldd chrome|grep not
+  # 结果
+  libatk-bridge-2.0.so.0 => not found
+  libXss.so.1 => not found
+  libatspi.so.0 => not found
+  libgtk-3.so.0 => not found
+  libgdk-3.so.0 => not found
+  # 安装依赖
+  yum install at-spi2-atk -y
+  yum install libXScrnSaver* -y
+  yum install gtk3 -y
+  ```
+- Ubuntu下报错   Failed to launch the browser process! 感谢DongjinLiu
+  ```bash
+  sudo apt-get install libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 libxi6 libxtst6 libnss3 libcups2 libxss1 libxrandr2 libasound2 libpangocairo-1.0-0 libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0
+  ``` 
+- linux下截图乱码  
 原始是因为linux默认不安装中文字体  
 此错误不解决，不影响程序功能   
 解决可参考博客 [Linux安装中文字体](https://www.cnblogs.com/huangyanqi/p/10609587.html)
 
+- Failed to set up Chromium r756035! Set "PUPPETEER SKIP DOWNLOAD" env variable to skip download.  
+  原因是puppeteer与nodejs的版本冲突问题。解决方案
+  ```Bash
+  sudo npm install puppeteer@1.8.0 --unsafe-perm=true --allow-root
+  ```
+  或更新nodejs至12.X+
 ## 更新
-
-1. 2020年6月7日 22点49分
-
+1. 2020年6月7日 22点49分  
 新增多用户,只对autoDiDi.js修改. 
 
-2. 2020年6月12日09:19:28
-
+2. 2020年6月12日09:19:28  
 解决Bug，因为研究生按钮和本科生按钮换了css位置.
 
-3. 2020年6月14日07:37:25
-
+3. 2020年6月14日07:37:25  
 解决Bug， Cannot read property 'contentDocument' of undefined  
 换为page.frame方式找到iframe，然后evaluate操作DOM  
 更新autoDiDi_servidce_mode和autoDiDi_test  
 
-4. 2020年6月15日08:30:17
-
+4. 2020年6月15日08:30:17  
 解决Bug，css位置又乱了。  
 服务器太慢，等待时间增加。  
 优化项目目录结构。  
 
-5. 2020年6月16日09:28:36 
-
+5. 2020年6月16日09:28:36  
 适应新版
+
