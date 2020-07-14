@@ -171,4 +171,4 @@ node temp_autoDiDi.js
 
 如果觉得此程序对您有用,给作者买个肉夹馍吧.
 --------------
-![avatar](https://www.cszhang.cn/WeChat_Alipay.jpg) 
+![avatar]:
