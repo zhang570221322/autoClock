@@ -112,7 +112,7 @@ node temp_autoDiDi.js
 # 可以注册为系统定时任务
 ```
 
-## Q&A
+## FQA
 
 - linux下报错   Failed to launch the browser process!
   ```bash
@@ -169,3 +169,6 @@ node temp_autoDiDi.js
 5. 2020年6月16日09:28:36  
 适应新版
 
+如果觉得此程序对您有用,给作者买个肉夹馍吧.
+--------------
+![avatar](https://www.cszhang.cn/WeChat_Alipay.jpg) 
