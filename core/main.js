@@ -4,7 +4,7 @@ const schedule = require('node-schedule'); // 定时任务
 const YAML = require('yamljs'); //读取配置文件
 const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
-yaml_file="./temp_main.yml" //配置文件路径
+yaml_file="./main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 async function my_main(_user,test,sign) {
   
