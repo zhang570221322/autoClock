@@ -1,1 +1,1 @@
-node tem_autoDiDi.js
+node temp_autoDiDi.js

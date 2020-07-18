@@ -11,6 +11,7 @@ async function my_main(_user,test,sign) {
     var browser;
     
     try {
+      return true
       // 打卡浏览器
       browser= await get_mybrowser();
      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报"+"----"+String(_user['username']))
@@ -183,7 +184,6 @@ function my(test){
         // 打卡第一次
         temp1= await my_main(_user,test,1)
         if(!temp1){
-          console.log("temp1=",temp1);
           await  my_main(_user,test,2)
         }
       }
