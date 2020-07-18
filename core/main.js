@@ -6,34 +6,23 @@ const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
 yaml_file="./temp_main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
-function my(test) {
-  (async () => { 
-  //  遍历users
-    for(id in data['users']){
-    // 锁定user
-       _user=data['users'][id];
-    console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报"+"----"+String(_user['username']))
-    const browser = await puppeteer.launch({
-      slowMo: 20,    //放慢速度
-      headless: data['config']['noShowUI'],
-      defaultViewport: {
-        width: 1540,
-        height: 1080,
-        hasTouch: true,
-        isMobile: false,
-        deviceScaleFactor: 3,
-      },
-      ignoreHTTPSErrors: false, //忽略 https 报错
-      args: [`--window-size=${1540},${1080}`,'--no-sandbox', '--disable-setuid-sandbox','--start-fullscreen'] //全屏打开页面
-  });
+async function my_main(_user,test,sign) {
+  
+    var browser;
+    
+    try {
+      // 打卡浏览器
+      browser= await get_mybrowser();
+     console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报"+"----"+String(_user['username']))
+  
        const sleepTime=5000
-      try{
+      
         const page = await browser.newPage()
         const navigationPromise = page.waitForNavigation()
         
         await page.goto('http://one2020.xjtu.edu.cn/EIP/user/index.htm')
       
-         
+        await page.waitFor(sleepTime)
         // 登陆
         const username= await page.waitForSelector('.main > .main_info > .loginState > #form1 > .username')
         // 账户
@@ -143,19 +132,62 @@ function my(test) {
         console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报"+"----"+String(_user['username']))
         // 发送邮件
         sendMail(_user['revMail'], "打卡成功 Clock Successfully ", screenshot_dir_2,"./"+screenshot_dir_2)
-      }catch(err){
+        return true;
+  
+      } catch(err){
+        
         console.log(err);
+        var message;
+        if(sign==2){
+          message="注意,系统第二次尝试打卡失败或已经打过卡. 如无,请手动打卡"
+        }
+        if(sign==1){
+          message= "注意,打卡失败或已经打过卡. 系统会再尝试打卡一次"
+        }
+   
         if(test){
-        sendMail(_user['revMail'], "注意,打开失败或已经打过卡，如无，请手动打卡", screenshot_dir_2,"")
+        console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报,打卡失败"+"----"+String(_user['username']))
+        sendMail(_user['revMail'], message, screenshot_dir_2,"")
         await browser.close()
-      }
+        }
+         return   false
       }
   
-    }
-    })()
-  
-
 }
-
+async function get_mybrowser(){
+  browser = await puppeteer.launch({
+    slowMo: 20,    //放慢速度
+    headless: data['config']['noShowUI'],
+    defaultViewport: {
+      width: 1540,
+      height: 1080,
+      hasTouch: true,
+      isMobile: false,
+      deviceScaleFactor: 3,
+    },
+    ignoreHTTPSErrors: false, //忽略 https 报错
+    args: [`--window-size=${1540},${1080}`,'--no-sandbox', '--disable-setuid-sandbox','--start-fullscreen'] //全屏打卡页面
+ });
+ return browser;
+}
+function my(test){
  
+  (async () => { 
+ 
+     //  遍历users
+     var _user;
+   
+    for(id in data['users']){
+        // 锁定user
+        _user=data['users'][id];
+        // 打卡第一次
+        temp1= await my_main(_user,test,1)
+        if(!temp1){
+          console.log("temp1=",temp1);
+          await  my_main(_user,test,2)
+        }
+      }
+  
+})()
+}
 module.exports = my;

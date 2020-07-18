@@ -169,6 +169,10 @@ node temp_autoDiDi.js
 5. 2020年6月16日09:28:36  
 适应新版
 
+6. 2020年7月18日10:03:11  
+   9日到15日一共12次打开失败,加入失败后重新打开机制
+
+
 如果觉得此程序对您有用,给作者买个肉夹馍吧.
 --------------
 ![avatar](https://github.com/zhang570221322/Figure_bed/blob/master/WeChat_Alipay.jpg?raw=true)
