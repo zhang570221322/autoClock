@@ -1,12 +1,11 @@
 const puppeteer = require('puppeteer');//模拟操作
 const moment = require('moment');// 时间
-const schedule = require('node-schedule'); // 定时任务
 const YAML = require('yamljs'); //读取配置文件
 const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
 yaml_file="./main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
-async function my_main(_user,test,sign) {
+async function my_main(_user,test) {
   
     var browser;
     
@@ -135,19 +134,8 @@ async function my_main(_user,test,sign) {
         return true;
   
       } catch(err){
-        
         console.log(err);
-        var message;
-        if(sign==2){
-          message="注意,系统第二次尝试打卡失败或已经打过卡. 如无,请手动打卡"
-        }
-        if(sign==1){
-          message= "注意,打卡失败或已经打过卡. 系统会再尝试打卡一次"
-        }
-   
         if(test){
-        console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报,打卡失败"+"----"+String(_user['username']))
-        sendMail(_user['revMail'], message, screenshot_dir_2,"")
         await browser.close()
         }
          return   false
@@ -175,18 +163,24 @@ function my(test){
   (async () => { 
  
      //  遍历users
-     var _user;
-   
-    for(id in data['users']){
-        // 锁定user
-        _user=data['users'][id];
-        // 打卡第一次
-        temp1= await my_main(_user,test,1)
-        if(!temp1){
-          await  my_main(_user,test,2)
+     var _user_list=Array(data['users'])[0];
+     
+     for(i=0;i<8;i++){
+        for(index in _user_list){
+          var _user=_user_list.pop();
+          temp1= await my_main(_user,test)
+         
+          if(!temp1){
+            _user_list=[_user].concat(_user_list);
+          }
         }
-      }
-  
+        
+     }
+     for(index in _user_list){
+      var _user=_user_list[index];
+      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报,打卡失败"+"----"+String(_user['username']))
+      sendMail(_user['revMail'], String(_user['username'])+",打卡失败,记得手动打卡.", "","")
+     }
 })()
 }
 module.exports = my;
