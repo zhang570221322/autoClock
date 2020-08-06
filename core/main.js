@@ -163,7 +163,7 @@ function my(test){
   (async () => { 
  
      //  遍历users
-     var _user_list=Array(data['users'])[0];
+     var _user_list=Array(data['users'])[0].concat();
      
      for(i=0;i<8;i++){
         for(index in _user_list){
