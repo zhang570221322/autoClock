@@ -10,10 +10,10 @@ const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 const  scheduleCronstyle = ()=>{
    
     schedule.scheduleJob( data['config']['scheduleJob'],()=>{
-        log=moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+": 开始批量打卡"
+        log=moment(Date.now()).format('YYYY-MM-DD-HH')+": 开始批量打卡"
         console.log(log);
         my(true)
-        log=moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+": 结束批量打卡"
+        log=moment(Date.now()).format('YYYY-MM-DD-HH')+": 结束批量打卡"
         console.log(log);
     }); 
 }
