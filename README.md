@@ -175,6 +175,8 @@ node temp_autoDiDi.js
    更新逻辑，存储一个循环列表，从列表尾部开始pop，打卡失败，重新添加进队首，多次循环这个列表，尝试指定次数后仍失败会发送打卡失败提醒。
 8. 2020年8月6日10:27:35  
    解决循环列表pop后下次再执行仍为空。
+9. 2020年8月7日19:13:53   
+   采纳 telepathphd 的建议，在运行autoDiDi时大概输出一下在做什么。
 如果觉得此程序对您有用,给作者买个肉夹馍吧.
 --------------
 ![avatar](https://github.com/zhang570221322/Figure_bed/blob/master/WeChat_Alipay.jpg?raw=true)
