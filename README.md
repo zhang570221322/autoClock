@@ -5,63 +5,53 @@
 
 ## 功能
 
-脚本会根据Crontab的时间参数定时执行打卡.  
-可以选择有浏览器窗口(UI)的打卡方式和无UI的.  
-有UI的可以看到打卡步骤,无UI的脚本静默运行.  
-两者都可以查看过程截图.  
-默认是每天8点和13点的1分30秒定时执行.  
+脚本会根据`Crontab`的时间参数定时(默认每天8点和13点的1分30秒)执行打卡,可以选择有浏览器窗口(UI)的打卡方式和无UI的静默运行,打卡成功会发送截图至反馈邮箱.  
 表单其他数据都会按默认,脚本自动完成的填写有.
-
 1. 选择返校后填报
 2. 选择绿色码
 3. 到过校园
 4. 到过哪个校园
-5. 当前体温，随机温度 36.X
-
-> 打卡成功会发送截图至反馈邮箱
+5. 当前体温，随机温度 36.X  
+> 脚本定时执行，一次打卡成功会生成日志和两张截图.   
+截图命名方式为`YYYY-MM-DD-HH-mm-ss_1.png` ,  `YYYY-MM-DD-HH-mm-ss_2.png`
 
 ## 软件包
-
-[nodejs32位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x86.msi)   
-[nodejs64位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x64.msi)
-
-
+* widows  
+  [nodejs32位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x86.msi)   
+  [nodejs64位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x64.msi)
+* linux   
+  `curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -`
+* Ubuntu  
+  `curl -sL https://deb.nodesource.com/setup_14.x | bash -`  
+  `apt-get install -y nodejs`
 ## 快速开始
 
 ```bash 
 git clone https://github.com/zhang570221322/autoClock
 cd autoClock
-# 添加npm淘宝镜像
-npm config set registry https://registry.npm.taobao.org
-# 添加electron淘宝镜像
-npm config set ELECTRON_MIRROR https://npm.taobao.org/mirrors/electron/
+# 使用 cnpm
+npm install -g cnpm --registry=https://registry.npm.taobao.org
 # 执行安装
-npm install
+cnpm install
+# 修改main.yml来修改账户密码和其他
 
-## 修改账户密码和其他
-# 修改main.yml
-
-# 打开一次
+# 打卡一次
 node temp_autoDiDi.js
-# 定时打开
+# 定时执行打卡
 node autoDiDi.js
 
 ```
-
-
-## 修改账户密码和其他
-
-如果觉得网速过慢（默认5秒），可以改core/main.js的`const sleepTime=5000`  
-
-main.yml 配置文件
+## main.yml 配置文件
 
 ```yml
 config: 
 # 显示UI
-# linux下必须为true
+# linux下必须为true以不显示UI
   noShowUI: false
 # 每天10点和16点的1分20秒定时执行一次
   scheduleJob: 20 1 10,16 * * *
+# 每次操作间隔时间,依据网速来定.默认5000毫秒,电脑网速过慢可以增加.
+  interval: 5000
 users: 
   -
     # 用户1
@@ -88,29 +78,17 @@ users:
 ```
 
 
+##  后台运行
+* widows下两种方法   
+1.将`node temp_autoDiDi.js`添加为windows定时计划任务  
+2.使用**easy-service**将`node temp_autoDiDi.js`注册为系统服务.  
+* linux内核下  
+  ```bash
+  nohup  node autoDiDi.js > log.out 2>&1 &
+  #或 $ (node autoDiDi.js > log.out 2>&1 &)
+  exit # 必须通过exit退出xshell
+  ```
 
-> linux 下后台运行
-
-```bash
-nohup  node autoDiDi.js > log.out 2>&1 &
-# 必须通过exit 退出xshell
-exit
-```
-
-脚本定时执行，一次打卡成功会生成日志和两张截图.   
-截图命名方式为`YYYY-MM-DD-HH-mm-ss_1.png` ,  `YYYY-MM-DD-HH-mm-ss_2.png`
-
-## 添加注册为windows服务模式
-
-> 推荐一个工具 easy-service
-
-> 依赖配置好以后
-
-```bash
-node temp_autoDiDi.js
-# 运行task.bat，执行一次 
-# 可以注册为系统定时任务
-```
 
 ## FQA
 
@@ -144,11 +122,8 @@ node temp_autoDiDi.js
 解决可参考博客 [Linux安装中文字体](https://www.cnblogs.com/huangyanqi/p/10609587.html)
 
 - Failed to set up Chromium r756035! Set "PUPPETEER SKIP DOWNLOAD" env variable to skip download.  
-  原因是puppeteer与nodejs的版本冲突问题。解决方案
-  ```Bash
-  sudo npm install puppeteer@1.8.0 --unsafe-perm=true --allow-root
-  ```
-  或更新nodejs至12.X+
+  原因是puppeteer中的Chromium下载不了。解决方案  
+  使用`cnpm`
 ## 更新
 1. 2020年6月7日 22点49分  
 新增多用户,只对autoDiDi.js修改. 
@@ -176,7 +151,10 @@ node temp_autoDiDi.js
 8. 2020年8月6日10:27:35  
    解决循环列表pop后下次再执行仍为空。
 9. 2020年8月7日19:13:53   
-   采纳 telepathphd 的建议，在运行autoDiDi时大概输出一下在做什么。
+   采纳 telepathphd 的建议，在运行autoDiDi.js时大概输出一下在做什么。  
+
+------
+
 如果觉得此程序对您有用,给作者买个肉夹馍吧.
 --------------
 ![avatar](https://github.com/zhang570221322/Figure_bed/blob/master/WeChat_Alipay.jpg?raw=true)

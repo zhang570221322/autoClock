@@ -1,9 +1,11 @@
 config: 
 # 显示UI
-# linux下必须为true
+# linux下必须为true以不显示UI
   noShowUI: false
 # 每天10点和16点的1分20秒定时执行一次
   scheduleJob: 20 1 10,16 * * *
+# 每次操作间隔时间,依据网速来定.默认5000毫秒,电脑网速过慢可以增加.
+  interval: 5000
 users: 
   -
     # 用户1

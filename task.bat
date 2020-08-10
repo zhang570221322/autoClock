@@ -1,1 +1,0 @@
-node temp_autoDiDi.js

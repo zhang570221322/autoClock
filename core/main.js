@@ -14,7 +14,7 @@ async function my_main(_user,test) {
       browser= await get_mybrowser();
      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报"+"----"+String(_user['username']))
   
-       const sleepTime=5000
+       const sleepTime=Number(data['config']['interval'])
       
         const page = await browser.newPage()
         const navigationPromise = page.waitForNavigation()
