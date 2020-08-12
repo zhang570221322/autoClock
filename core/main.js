@@ -12,7 +12,7 @@ async function my_main(_user,test) {
     try {
       // 打卡浏览器
       browser= await get_mybrowser();
-     console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":开始填报"+"----"+String(_user['username']))
+     console.log(moment(Date.now()).format('YYYY/MM/DD HH:mm:ss')+":开始填报"+"----"+String(_user['username']))
   
        const sleepTime=Number(data['config']['interval'])
       
@@ -128,7 +128,7 @@ async function my_main(_user,test) {
         await frame_55.waitForSelector('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
         await frame_55.click('.service-right-sidebar > .service-entrance > ul > .bl-item:nth-child(2) > .business-btn-text')
         await browser.close()
-        console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报"+"----"+String(_user['username']))
+        console.log(moment(Date.now()).format('YYYY/MM/DD HH:mm:ss')+":结束填报"+"----"+String(_user['username']))
         // 发送邮件
         sendMail(_user['revMail'], "打卡成功 Clock Successfully ", screenshot_dir_2,"./"+screenshot_dir_2)
         return true;
@@ -178,7 +178,7 @@ function my(test){
      }
      for(index in _user_list){
       var _user=_user_list[index];
-      console.log(moment(Date.now()).format('YYYY-MM-DD-HH-mm-ss')+":结束填报,打卡失败"+"----"+String(_user['username']))
+      console.log(moment(Date.now()).format('YYYY/MM/DD HH:mm:ss')+":结束填报,打卡失败"+"----"+String(_user['username']))
       sendMail(_user['revMail'], String(_user['username'])+",打卡失败,记得手动打卡.", "","")
      }
 })()

@@ -5,16 +5,14 @@
 
 ## 功能
 
-脚本会根据`Crontab`的时间参数定时(默认每天8点和13点的1分30秒)执行打卡,可以选择有浏览器窗口(UI)的打卡方式和无UI的静默运行,打卡成功会发送截图至反馈邮箱.  
+程序会根据`Crontab`的时间参数随机定时进行有浏览器窗口(UI)或无UI的打卡,成功会发送截图至反馈邮箱.
 表单其他数据都会按默认,脚本自动完成的填写有.
 1. 选择返校后填报
 2. 选择绿色码
 3. 到过校园
 4. 到过哪个校园
 5. 当前体温，随机温度 36.X  
-> 脚本定时执行，一次打卡成功会生成日志和两张截图.   
-截图命名方式为`YYYY-MM-DD-HH-mm-ss_1.png` ,  `YYYY-MM-DD-HH-mm-ss_2.png`
-
+> 截图命名方式为 **YYYY-MM-DD-HH-mm-ss_1.png** ,  **YYYY-MM-DD-HH-mm-ss_2.png**
 ## 软件包
 * widows  
   [nodejs32位](https://npm.taobao.org/mirrors/node/v14.4.0/node-v14.4.0-x86.msi)   
@@ -152,6 +150,8 @@ users:
    解决循环列表pop后下次再执行仍为空。
 9. 2020年8月7日19:13:53   
    采纳 telepathphd 的建议，在运行autoDiDi.js时大概输出一下在做什么。  
+10. 2020年8月12日15:33:07  
+    采纳 [telepathphd](https://github.com/telepathphd)的建议,在触发时间后的随机一小时内执行.
 
 ------
 
