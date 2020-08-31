@@ -2,8 +2,8 @@ config:
 # 显示UI
 # linux下必须为true以不显示UI
   noShowUI: false
-# 每天10点和16点的1分20秒定时执行一次
-  scheduleJob: 20 1 10,15 * * *
+# 每天7点的1分20秒定时执行一次
+  scheduleJob: 20 1 7 * * *
 # 每次操作间隔时间,依据网速来定.默认5000毫秒,电脑网速过慢可以增加.
   interval: 5000
 users: 
@@ -16,6 +16,8 @@ users:
     # 到过校园
     # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
     campus: 创新港校区
+    # 所在学院
+    school: "XXXX"
     # 接受打卡成功反馈的邮箱
     revMail: xxxxxxxxx@qq.com
   -
@@ -27,5 +29,7 @@ users:
     # 到过校园
     # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
     campus: 创新港校区
+    # 所在学院
+    school: "XXXX"
     # 接受打卡成功反馈的邮箱
     revMail: xxxxxxxxx@qq.com

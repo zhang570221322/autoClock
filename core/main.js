@@ -3,7 +3,7 @@ const moment = require('moment');// 时间
 const YAML = require('yamljs'); //读取配置文件
 const fs = require("fs"); // 解析
 const sendMail = require('./mail') //发送邮件
-yaml_file="./main.yml" //配置文件路径
+yaml_file="./temp_main.yml" //配置文件路径
 const data = YAML.parse(fs.readFileSync(yaml_file).toString());
 async function my_main(_user,test) {
   
@@ -56,13 +56,13 @@ async function my_main(_user,test) {
         }else{
           console.log("_user['type']："+_user['type']+"输入有误");
         }
-    
-        //选择返校后填报
+ 
+        //选择每日健康填报
         await page.waitFor(sleepTime)
         frames2= await page.frames()
         const frame_50 =  frames2.find(f => f.url().includes('/elobby/service/start.htm'))
-        await frame_50.waitForSelector('body > div > div.service-right-sidebar > div.service-entrance > ul > li:nth-child(2)')
-        await frame_50.click('body > div > div.service-right-sidebar > div.service-entrance > ul > li:nth-child(2)')
+        await frame_50.waitForSelector('body > div > div.service-right-sidebar > div.service-entrance > ul > li:nth-child(1)')
+        await frame_50.click('body > div > div.service-right-sidebar > div.service-entrance > ul > li:nth-child(1)')
         await navigationPromise
 
         // 开始填报
@@ -74,19 +74,20 @@ async function my_main(_user,test) {
         await frame_51.evaluate((_user) => {
           // 随机温度
           var random=Math.floor(Math.random()*10);
-          // 绿色
-          $(document.querySelector("#mini-2\\$ck\\$2")).click()
-          // 到过校园
-          document.querySelector("#mini-72\\$ck\\$0").click();
+          // 绿色 
+          document.querySelector("#mini-2\\$ck\\$2").click()
+          // 已取得西安市一码通
+          document.querySelector("#mini-3\\$ck\\$0").click();
+          // 已经阅知
+          document.querySelector("#mini-4\\$ck\\$0").click();
           // 哪个校园
           document.querySelector("#SZXQ\\$value").value=_user['campus']
           // 36.5 
           document.querySelector("#BRTW\\$text").value ="36."+random
           mini.get("BRTW").value="36."+random
-          // 近14日内本人或家属是否去过中高风险区？
-          document.querySelector("#mini-95\\$ck\\$1").click()
-          // 14日内本人或家属是否同中高风险区返回人员接触过？
-          document.querySelector("#mini-99\\$ck\\$1").click()
+          // 所在学院
+          document.querySelector("#SZXY\\$text").value=_user['school']
+          mini.get("SZXY").value=_user['school']
         },_user)
         //上午下午
         // const x_y=(await (await frame_51.$("#SXW > .mini-buttonedit-border > .mini-buttonedit-buttons > .mini-buttonedit-button")).boundingBox());

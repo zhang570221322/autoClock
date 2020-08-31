@@ -7,11 +7,12 @@
 
 程序会根据`Crontab`的时间参数随机定时进行有浏览器窗口(UI)或无UI的打卡,成功会发送截图至反馈邮箱.
 表单其他数据都会按默认,脚本自动完成的填写有.
-1. 选择返校后填报
+1. 选择健康每日填报
 2. 选择绿色码
-3. 到过校园
-4. 到过哪个校园
-5. 当前体温，随机温度 36.X  
+3. 已经阅知
+4. 已取得西安市一码通
+5. 填写学院
+6. 填写当前体温，随机温度 36.X  
 > 截图命名方式为 **YYYY-MM-DD-HH-mm-ss_1.png** ,  **YYYY-MM-DD-HH-mm-ss_2.png**
 ## 软件包
 * widows  
@@ -46,8 +47,8 @@ config:
 # 显示UI
 # linux下必须为true以不显示UI
   noShowUI: false
-# 每天10点和16点的1分20秒定时执行一次
-  scheduleJob: 20 1 10,16 * * *
+# 每天7点的1分20秒定时执行一次
+  scheduleJob: 20 1 7 * * *
 # 每次操作间隔时间,依据网速来定.默认5000毫秒,电脑网速过慢可以增加.
   interval: 5000
 users: 
@@ -56,10 +57,12 @@ users:
     username: xxxxxx
     password: xxxxxx
     # 本科生 || 研究生
-    type: 研究生
+    type: 研究生               
     # 到过校园
     # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
     campus: 创新港校区
+    # 所在学院
+    school: "XXXX"
     # 接受打卡成功反馈的邮箱
     revMail: xxxxxxxxx@qq.com
   -
@@ -67,10 +70,12 @@ users:
     username: 2
     password: xxxxxx
     # 本科生 || 研究生
-    type: 研究生
+    type: 研究生               
     # 到过校园
     # 创新港校区 || 兴庆校区 || 雁塔校区 || 曲江校区
     campus: 创新港校区
+    # 所在学院
+    school: "XXXX"
     # 接受打卡成功反馈的邮箱
     revMail: xxxxxxxxx@qq.com
 ```
@@ -152,7 +157,8 @@ users:
    采纳 telepathphd 的建议，在运行autoDiDi.js时大概输出一下在做什么。  
 10. 2020年8月12日15:33:07  
     采纳 [telepathphd](https://github.com/telepathphd)的建议,在触发时间后的随机一小时内执行.
-
+11. 2020年9月1日02:07:19  
+    更新以适应新版,每天打卡一次,添加学院school选项.
 ------
 
 如果觉得此程序对您有用,给作者买个肉夹馍吧.

@@ -23,7 +23,7 @@ temp_min=Number(data['config']['scheduleJob'].split(" ")[1])
 console.log(moment(Date.now()).format('YYYY/MM/DD HH:mm:ss')+" : 开始批量打卡,等待时间触发");
 const  scheduleCronstyle = ()=>{
 
-    schedule.scheduleJob( data['config']['scheduleJob'],()=>{
+        schedule.scheduleJob( data['config']['scheduleJob'],()=>{
         temp_random=getRndInteger(temp_min+1,60)
         console.log(moment(Date.now()).format('YYYY/MM/DD HH:mm:ss')+" : 时间触发,系统将在第"+temp_random+"分执行");
         myInterval=setInterval(myfunction,5000,temp_random);
