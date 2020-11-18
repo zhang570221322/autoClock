@@ -35,7 +35,7 @@ cnpm install
 # 修改main.yml来修改账户密码和其他
 
 # 打卡一次
-node temp_autoDiDi.js
+node autoDiDi_Once.js
 # 定时执行打卡
 node autoDiDi.js
 
@@ -83,8 +83,8 @@ users:
 
 ##  后台运行
 * widows下两种方法   
-1.将`node temp_autoDiDi.js`添加为windows定时计划任务  
-2.使用**easy-service**将`node temp_autoDiDi.js`注册为系统服务.  
+1.将`node autoDiDi_Once.js`添加为windows定时计划任务  
+2.使用**easy-service**将`node autoDiDi_Once.js`注册为系统服务.  
 * linux内核下  
   ```bash
   nohup  node autoDiDi.js > log.out 2>&1 &
