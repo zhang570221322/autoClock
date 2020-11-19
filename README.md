@@ -159,6 +159,8 @@ users:
     采纳 [telepathphd](https://github.com/telepathphd)的建议,在触发时间后的随机一小时内执行.
 11. 2020年9月1日02:07:19  
     更新以适应新版,每天打卡一次,添加学院school选项.
+12. 2020年11月19日 16点06分
+    页面逻辑更改了,改为打开http://jkrb.xjtu.edu.cn/EIP/user/index.htm 这个网站。
 ------
 
 如果觉得此程序对您有用,给作者买个肉夹馍吧.
