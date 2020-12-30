@@ -1,7 +1,8 @@
 node_modules    
 test*
-temp_main.yml
 2020*
-1.png
+*.png
 main*
 others
+send_mail.js
+main.yml
