@@ -97,6 +97,18 @@ users:
 
 ## FQA
 
+- 遇见 /xxx/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/chrome: `error` while loading shared libraries:
+  ### Ubuntu 下解决方案
+  ```bash
+  cd /xxxx/autoClock/node_modules/puppeteer/.local-chromium/linux-756035/chrome-linux/
+  ldd chrome|grep not
+  #输出
+  libgbm.so.1 => not found
+  ......
+  # 对没找到的包去https://packages.ubuntu.com/search?下搜索
+  #然后对应安装
+  sudo apt install libgbm-dev
+  ```
 - linux 下报错 Failed to launch the browser process!
   ```bash
   # linux下报错
@@ -165,6 +177,8 @@ users:
     更新以适应新版,每天打卡一次,添加学院 school 选项.
 12. 2020 年 11 月 19 日 16 点 06 分
     页面逻辑更改了,改为打开http://jkrb.xjtu.edu.cn/EIP/user/index.htm 这个网站。
+13. 2021 年 1 月 1 日 15:49:13
+    fix bug
 
 ---
 
