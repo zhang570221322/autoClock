@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/zhang570221322/autoClock)
+
 # autoClock | 西安交通大学每日健康打卡脚本
 
 > 疫情 健康 打卡 XJTU  
