@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/zhang570221322/autoClock)
+
 # autoClock | 西安交通大学每日健康打卡脚本
 
 > 疫情 健康 打卡 XJTU  
@@ -183,6 +185,8 @@ users:
     页面逻辑更改了,改为打开http://jkrb.xjtu.edu.cn/EIP/user/index.htm 这个网站。
 13. 2021 年 1 月 1 日 15:49:13
     fix bug
+14. 2021 年 1 月 1 日 16:28:04
+    更改一些打卡逻辑。有些步骤不需要
 
 ---
 
