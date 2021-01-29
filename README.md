@@ -94,6 +94,10 @@ users:
   #或 $ (node autoDiDi.js > log.out 2>&1 &)
   exit # 必须通过exit退出xshell
   ```
+- 强制关闭后台进程
+  ```bash
+  kill -9  $(ps -aux | grep autoDiDi | awk -F " " '{print $2}'| head -n 1)
+  ```
 
 ## FQA
 
