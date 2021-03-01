@@ -98,7 +98,7 @@ users:
   ```
 - 强制关闭后台进程
   ```bash
-  kill -9  $(ps -aux | grep autoDiDi | awk -F " " '{print $2}'| head -n 1)
+  kill -9  $(ps -aux | grep autoDiDi | awk -F " " '{print $2}'| sed -n '2p')
   ```
 
 ## FQA
