@@ -64,21 +64,19 @@ async function my_main(_user, test) {
     await navigationPromise
 
     // 开始填报
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
+    await page.waitFor(sleepTime*5)
+ 
     frames2 = await page.frames()
     const frame_51 = frames2.find(f => f.url().includes('flow/flowForm'))
     await frame_51.evaluate((_user) => {
+      // 没有去过高风险地区
+      document.querySelector("#mini-2\\$1").click();
       // 已经阅知
-      document.querySelector("#mini-4\\$ck\\$0").click();
+      // document.querySelector("#mini-4\\$ck\\$0").click();
       // 随机温度
       var random = Math.floor(Math.random() * 10);
       // 绿色 
-      document.querySelector("#mini-2\\$ck\\$2").click()
+      // document.querySelector("#mini-2\\$ck\\$2").click()
       // 已取得西安市一码通
       // document.querySelector("#mini-3\\$ck\\$0").click();
       // 哪个校园
@@ -90,10 +88,8 @@ async function my_main(_user, test) {
       // document.querySelector("#SZXY\\$text").value = _user['school']
       // mini.get("SZXY").value = _user['school']
     }, _user)
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
-    await page.waitFor(sleepTime)
+    await page.waitFor(sleepTime*4)
+
     //上午下午
     // const x_y=(await (await frame_51.$("#SXW > .mini-buttonedit-border > .mini-buttonedit-buttons > .mini-buttonedit-button")).boundingBox());
     // await page.mouse.move(x_y['x'],x_y['y']);
@@ -110,7 +106,7 @@ async function my_main(_user, test) {
 
     // 提交按钮
     frames4 = await page.frames()
-    const frame_53 = frames4.find(f => f.url().includes('cooperative/openCooperative.htm'))
+    const frame_53 = frames4.find(f => f.url().includes('/EIP/cooperative/openCooperative.htm'))
     await frame_53.waitForSelector('table #sendBtn')
     await frame_53.click('table #sendBtn')
     // 截图
